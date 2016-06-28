@@ -1,0 +1,55 @@
+# ===================================================== #
+
+#comment# For hosts, use full hostname.
+
+# ===================================================== #
+
+###** GALAXY INSTALLATION HOSTS **###
+[galaxyhost]
+
+
+#comment# hosts in which galaxy should be installed
+#comment# add as many as you like by creating a new line
+# ----------------------------------------------------- #
+
+[remoteserver]
+
+#comment# BIG_HOST and FAST_HOST must be specified here.
+#comment# remoteserver can take maximum of two hosts.
+#comment# if "nfs_server_setup" and "nfs_client_connection" installations are not used, "remoteserver" group can be left empty.
+
+# ----------------------------------------------------- #
+
+[postgressrvr]
+
+#comment# Specify hostname only if you want to maintain all databases from different hosts in one location.
+#comment# Leaving "postgressrvr" empty will configure postgresql setup in each and every required hosts, individually.
+
+# ----------------------------------------------------- #
+
+[galaxy:children]
+galaxyhost
+remoteserver
+#comment# Donot modify this section
+
+# ===================================================== #
+
+###** SLURM HOSTS **###
+[masterhost]
+
+
+# ----------------------------------------------------- #
+
+[executionhost]
+
+
+#comment# Galaxy from masterhost 
+
+# ----------------------------------------------------- #
+
+[slurm:children]
+masterhost
+executionhost
+#comment# Donot modify this section
+
+# ===================================================== #

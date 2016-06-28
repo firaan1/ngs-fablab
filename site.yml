@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  remote_user: root
+  max_fail_percentage: 0
+  vars_files: 
+    - "{{ LOCAL_DIR }}/inifile.yml"  
+  #pre_tasks:
+  #  - include_vars: "{{ LOCAL_DIR }}/inifile.yml"
+
+  roles:
+    - { role: common }
+    - { role: nfs_server_client }
+    - { role: postgresql }
+    - { role: apache2 }
+    - { role: pregalaxy }
+    - { role: galaxy }
+    - { role: slurm }

@@ -1,0 +1,7 @@
+---
+- name: Checking compatability between "hosts" file and "inifile.yml" provided
+  include: compatibility.yml
+
+- name: Creating root bashrc file
+  include: root_bashrc.yml
+  when: nfs_server_setup | default('False') == 'True' or postgresql | default('False') == 'True' or apache2 | default('False') == 'True' or galaxy | default('False') == 'True' or galaxy_grid_configuration | default('False') == 'True'

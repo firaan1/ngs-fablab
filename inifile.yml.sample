@@ -1,0 +1,83 @@
+---
+# ===================================================== #
+
+# Inifile configuration
+## GENERAL ASSUMPTION ##
+# basic repositories are already added in SLES.
+# for Ubuntu, it comes with the blank image.
+
+# ===================================================== #
+
+###** GENERAL PARAMETERS **###
+#comment# file servers
+BIG_HOST: srvr1.example.com
+FAST_HOST: srvr2.example.com
+#comment# file servers in the "remoteserver" group in "hosts" file
+#comment# if you are  using only one server, use same hostname for both BIG_HOST and FAST_HOST variables
+#comment# if no file servers used, comment the above two parameters.
+
+# ----------------------------------------------------- #
+
+#comment# proxys
+HTTP_PROXY: 'http://proxy.server.de:port'
+HTTPS_PROXY: 'http://proxy.server.de:port'
+FTP_PROXY: 'http://proxy.server.de:port'
+#comment# If no proxys needed, comment the above proxy variables before running
+
+# ===================================================== #
+
+###** GALAXY INSTALLATION **###
+#comment# groups and users
+GALAXY_USER: galaxy
+GALAXY_USER_ID: 1003
+#comment# unix galaxy user
+#comment# mandatory
+
+PROXY_PORT: 8095
+#comment# proxy_port to be added to galaxy inifile and apache configuration if installed.
+#comment# default proxy_port is 8080. donot comment PROXY_PORT variable 
+#comment# mandatory
+
+NGS_GROUP: ngs
+NGS_GROUP_ID: 1005
+#comment# unix user group
+#comment# mandatory
+
+# ----------------------------------------------------- #
+
+#comment# client connection parameters
+#comment# bighost
+REMOTE_GENOMES_DIR: /path/to/genomes/dir
+REMOTE_FTP_UPLOAD_DIR: /path/to/raw_data/dir
+REMOTE_DATASET_FILES_DIR: /path/to/dataset_files/dir
+#comment# above are the mountpoints to be created in BIG_HOST
+
+# ----------------------------------------------------- #
+
+#comment# fasthost
+REMOTE_NEW_FILE_PATH: /path/to/new_file_path/dir
+REMOTE_JOB_WORKING_DIR: /path/to/job_working_dir/dir
+#comment# above are the mountpoints to be created in FAST_HOST
+
+# ----------------------------------------------------- #
+
+#comment# galaxy version
+GALAXY_VERSION: 'v15.03'
+#comment# comment it to get the latest version
+
+# ----------------------------------------------------- #
+
+#comment# admins
+SRVR_ADMIN: user1.example.com
+ADMIN_USERS_LIST: user1.example.com,user2.example.com,user3.example.com
+#comment# these variables will be used in galaxy.ini file modification.
+#comment# ADMIN_USERS_LIST should be comma separated, without white spaces in between them
+#comment# SRVR_ADMIN varible will also be used for apache configuration.
+
+# ===================================================== #
+
+###** GRID INSTALLATION **###
+SLURM_USER: slurm
+SLURM_ID: 1016
+
+# ===================================================== #

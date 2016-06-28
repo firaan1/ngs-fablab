@@ -1,0 +1,27 @@
+---
+- name: Checking if .bashrc exists in root directory
+  stat: path="/etc/bash.bashrc"
+  register: file_check
+
+- name: Backup bashrc
+  shell: cp /etc/bash.bashrc /etc/bash.bashrc_bckp
+  when: file_check.stat.exists == True
+
+- name: Creating .bashrc if it doesnt exist
+  shell: touch /etc/bash.bashrc
+  when: file_check.stat.exists == False
+
+- name: appending proxies to .bashrc file in root directory
+  lineinfile: dest=/etc/bash.bashrc line='# Proxies'
+  when: (not HTTP_PROXY | default('False') == 'False') or (not HTTPS_PROXY | default('False') == 'False') or (not FTP_PROXY | default('False') == 'False')
+
+- lineinfile: dest=/etc/bash.bashrc line='export http_proxy={{ HTTP_PROXY }}'
+  when: not HTTP_PROXY | default('False') == 'False'
+- lineinfile: dest=/etc/bash.bashrc line='export https_proxy={{ HTTPS_PROXY }}'
+  when: not HTTPS_PROXY | default('False') == 'False'
+- lineinfile: dest=/etc/bash.bashrc line='export ftp_proxy={{ FTP_PROXY }}'
+  when: not FTP_PROXY | default('False') == 'False'
+
+- name: appending pythonpath to .bashrc file in root directory
+  lineinfile: dest=/etc/bash.bashrc line='export PYTHONPATH={{ TOOL_LIBS }}/lib64/python:{{ TOOL_LIBS }}/lib/python:$PYTHONPATH'
+  when: not TOOL_LIBS | default('False') == 'False'

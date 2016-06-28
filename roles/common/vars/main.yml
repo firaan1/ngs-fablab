@@ -1,0 +1,65 @@
+---
+# common_vars.yml file
+
+# Common variables to be used
+# general
+HOMEDIR: "/home"
+TMP_INST: "/tmp"
+VM_NAME: "{{ inventory_hostname }}"
+TOOLS_REPO: "{{ LOCAL_DIR }}/tools_repo"
+
+# galaxy installation
+GALAXY: "{{ HOMEDIR }}/{{ GALAXY_USER }}"
+DOWNLOADS: "{{ GALAXY }}/downloads"
+EXT_TOOLS: "{{ GALAXY }}/ext_tools"
+EXEC: "{{ EXT_TOOLS }}/bin"
+TOOL_LIBS: "{{ GALAXY }}/tool_libs"
+EXTERNAL_RESOURCES: "{{ GALAXY }}/external_resources"
+GENOMES: "{{ EXTERNAL_RESOURCES }}/genomes"
+REMOTEHOST_LINK: "{{ EXTERNAL_RESOURCES }}/{{ lookup('pipe', 'echo {{ VM_NAME }} | cut -f1 -d .') }}"
+DATASET_FILES: "{{ EXTERNAL_RESOURCES }}/{{ lookup('pipe', 'echo {{ VM_NAME }} | cut -f1 -d .') }}/dataset_files"
+NEW_FILE_PATH: "{{ EXTERNAL_RESOURCES }}/{{ lookup('pipe', 'echo {{ VM_NAME }} | cut -f1 -d .') }}/new_file_path"
+JOB_WORKING_DIRECTORY: "{{ EXTERNAL_RESOURCES }}/{{ lookup('pipe', 'echo {{ VM_NAME }} | cut -f1 -d .') }}/job_working_directory"
+FTP_UPLOAD_DIR: "{{ EXTERNAL_RESOURCES }}/ftp_upload_dir"
+GALAXY_BASHRC: "{{ GALAXY }}/.bashrc"
+
+# galaxy folders
+GALAXY_DIST: "{{ GALAXY }}/galaxy"
+CONFIG: "{{ GALAXY_DIST }}/config"
+#GALAXY_URL_BITBUCKET: 'https://bitbucket.com/galaxy/galaxy-dist/'
+GALAXY_URL: 'https://github.com/galaxyproject/galaxy.git'
+GALAXY_INI_FILE: "{{ CONFIG }}/galaxy.ini.sample"
+TOOL_CONF_XML: "{{ CONFIG }}/tool_conf.xml"
+JOB_CONF_XML: "{{ CONFIG }}/job_conf.xml"
+TOOL_DATA_TABLE_CONF_XML: "{{ CONFIG }}/tool_data_table_conf.xml"
+TOOLS: "{{ GALAXY_DIST }}/tools"
+TEST_DATA: "{{ GALAXY_DIST }}/test-data"
+TOOL_DATA: "{{ GALAXY_DIST }}/tool-data"
+JARS: "{{ TOOL_DATA }}/shared/jars"
+STATIC: "{{ GALAXY_DIST }}/static"
+TOOL_DEP: "{{ GALAXY_DIST }}/tool_dependencies"
+SHED_TOOLS: "{{ GALAXY }}/shed_tools"
+
+# proxy environments
+proxy_env:
+  http_proxy: "{{ HTTP_PROXY | default('False') }}"
+  https_proxy: "{{ HTTPS_PROXY | default('False') }}"
+  ftp_proxy: "{{ FTP_PROXY | default('False') }}"
+
+# apache configuration
+APACHE2_LOG: /var/log/apache2
+APACHE2_ETC: /etc/apache2
+HTTP_PORT: 80
+HTTPS_PORT: 443
+
+# Suse
+WWW_VAR: /var/www
+VHOSTS_D: "{{ APACHE2_ETC }}/vhosts.d"
+# Debian
+VHOSTS_SRV: /srv/www/vhosts
+SITES_AVAILABLE: "{{ APACHE2_ETC }}/sites-available"
+SITES_ENABLED: "{{ APACHE2_ETC }}/sites-enabled"
+
+
+POSTGRES_SRVR: "{{ groups['postgressrvr'] }}"
+# tools

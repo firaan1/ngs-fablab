@@ -1,0 +1,16 @@
+---
+- name: Checking BIG_HOST
+  shell: echo "'BIG_HOST' in 'inifile.yml' doesn't belong to 'remoteserver' group in 'hosts' file"; exit 1
+  when: not BIG_HOST | default('False') == 'False' and not BIG_HOST in groups['remoteserver'] and nfs_server_client | default('False') == 'True'
+
+- name: Checking FAST_HOST
+  shell: echo "'FAST_HOST' in 'inifile.yml' doesn't belong to 'remoteserver' group in 'hosts' file"; exit 1
+  when: not BIG_HOST | default('False') == 'False' and not FAST_HOST in groups['remoteserver'] and nfs_server_client | default('False') == 'True'
+
+- name: Checking BIG_HOST client connection parameters
+  shell: echo "'BIG_HOST' client connection parameters in the 'inifile.yml' are missing"; exit 1
+  when: (not BIG_HOST | default('False') == 'False' and nfs_server_client | default('False') == 'True') and (REMOTE_GENOMES_DIR | default('False') == 'False' or REMOTE_FTP_UPLOAD_DIR | default('False') == 'False' or REMOTE_DATASET_FILES_DIR | default('False') == 'False')
+
+- name: Checking FAST_HOST client connection parameters
+  shell: echo "'FAST_HOST' client connection parameters in the 'inifile.yml' are missing"; exit 1
+  when: (not FAST_HOST | default('False') == 'False' and nfs_server_client | default('False') == 'True') and (REMOTE_NEW_FILE_PATH | default('False') == 'False' or REMOTE_JOB_WORKING_DIR | default('False') == 'False') 
